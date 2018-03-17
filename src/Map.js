@@ -97,7 +97,7 @@ export class Map extends React.Component {
       instance.setZoom(state.zoom);
     }
 
-    if (prevState.center !== state.center) {
+    if (state.center && prevState.center !== state.center) {
       instance.setCenter(state.center);
     }
 
