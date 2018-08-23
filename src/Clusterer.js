@@ -114,10 +114,22 @@ export class Clusterer extends React.Component {
     const { children } = this.props;
     const { instance } = this.state;
 
-    return (
-      <noscript>
-        {instance && children}
-      </noscript>
-    );
+    // https://github.com/facebook/react/issues/1252
+    if (process.browser) {
+      return (
+        <noscript>
+          {instance && children}
+        </noscript>
+      );
+    // SSR
+    } else {
+      return (
+        <noscript
+          dangerouslySetInnerHTML={{
+            __html: React.renderToStaticMarkup(instance && children)
+          }}
+        />
+      );
+    }
   }
 }
